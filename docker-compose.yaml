@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.33
+    environment:
+      MYSQL_ROOT_PASSWORD: MySqlServer2023
+      MYSQL_DATABASE: DeviceManager
+      MYSQL_USER: DeviceManager
+      MYSQL_PASSWORD: MySqlServer2023
+    ports:
+      - "3306:3306"
+    networks:
+      inventory_network:
+        ipv4_address: 10.0.38.3
+    healthcheck:
+      # Debug with docker inspect --format "{{json .State.Health }}" devicemanagerpriv-mysql-1
+      test: "mysql -u DeviceManager --password=MySqlServer2023 --database=DeviceManager -e exit"
+      interval: 5s
+      timeout: 10s
+      retries: 50
+
+  web_app:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: 10.0.38.3
+      DB_DATABASE: DeviceManager
+      DB_USERNAME: DeviceManager
+      DB_PASSWORD: MySqlServer2023
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      inventory_network:
+        ipv4_address: 10.0.38.2
+
+networks:
+  inventory_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.38.0/24

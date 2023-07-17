@@ -1,0 +1,41 @@
+
+#logo-container{
+    height: 100px;
+    text-align: center;
+}
+#header-logo{
+    margin-top: 2%;
+}
+#navbar-main{
+    background-color: white !important;
+    font-family: 'Franklin Gothic Demi', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+}
+#navbar-lane{
+    color:black;
+}
+#navbar-main a:hover{
+    background-color: #FF3F3F !important;
+    opacity: 100%;
+    color: white;
+}
+#navbar-dropdown{
+    background-color: #FF3F3F;
+    opacity: 100%;
+}
+@media all{
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
+#navDropdownItem{
+    color: white;
+}
+button.navbar-toggler{
+    margin: 0px auto;
+    border: none;
+}
+#navbar-main .hover-effect:hover{
+    background-color: #dd3434 !important;
+}
